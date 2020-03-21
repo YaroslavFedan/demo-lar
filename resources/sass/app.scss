@@ -1,1 +1,23 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+//AdminLTE
+@import "~admin-lte/dist/css/adminlte.min.css";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Font Awesome
+@import "~admin-lte/plugins/fontawesome-free/css/all.min.css";
+
+//icheck bootstrap
+@import "~admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css";
+
+
+// Admin
+@import "admin";
+
+

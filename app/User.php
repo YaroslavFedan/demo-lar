@@ -2,13 +2,15 @@
 
 namespace App;
 
+use App\Permissions\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    use HasPermissionsTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password'
     ];
 
     /**
@@ -36,4 +38,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function role()
+    {
+        return $this->belongsToMany(Role::class,'users_roles');
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            // ... code here
+        });
+
+        self::created(function($model){
+
+        });
+
+        self::updating(function($model){
+            // ... code here
+        });
+
+        self::updated(function($model){
+            // ... code here
+        });
+
+        self::deleting(function($model){
+            // ... code here
+        });
+
+        self::deleted(function($model){
+            // ... code here
+        });
+    }
 }
