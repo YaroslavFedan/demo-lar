@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <div class="card no-border-radius no-box-shadow">
+    <div class="card no-border-radius no-box-shadow" id="vueapp">
         <div class="card-header with-border">
             <h3 class="card-title">Visitors Report</h3>
 
@@ -20,22 +20,9 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body no-padding" >
-            <?php
-            $nodes = \App\Employee::get()->toTree();
-
-            $traverse = function ($items) use (&$traverse) {
-                echo "<ul>";
-                foreach ($items as $item) {
-                    echo "<li>".$item->full_name."</li>";
-
-                    $traverse($item->children);
-                }
-                echo "</ul>";
-            };
-
-            $traverse($nodes);
-            ?>
+            <employees-tree-view></employees-tree-view>
         </div>
         <!-- /.card-body -->
     </div>
 @endsection
+

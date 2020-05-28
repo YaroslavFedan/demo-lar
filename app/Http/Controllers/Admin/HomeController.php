@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Employee;
-use App\Http\Controllers\Controller;
+use App\Position;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $employees = Employee::get()->toTree();
+        $data = [
+            'count_employees'=>Employee::all()->count(),
+            'count_position'=>Position::all()->count()
+        ];
 
-        return view('admin.home.index', compact('employees'));
+        return view('admin.home.index', compact('data'));
     }
 }

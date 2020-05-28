@@ -13,7 +13,6 @@ $faker->addProvider(new Faker\Provider\en_US\Person($faker));
 $faker->addProvider(new Faker\Provider\Internet($faker));
 $faker->addProvider(new Faker\Provider\DateTime($faker));
 
-
 $formats = phoneFormats();
 $admin_id = getAdminId();
 
@@ -26,7 +25,7 @@ $factory->define(Employee::class, function (FakerGenerator $faker) use ($formats
     $full_name = $first_name . ' ' . $last_name;
     $email = strtolower(Str::slug($full_name, '.')) . '@' . $faker->freeEmailDomain();
     $phone = $faker->numerify($faker->randomElement($formats));
-    $salary = $faker->randomFloat(3, $min = 0, $max = 500);
+    $salary = $faker->numberBetween(300, 1000);
     $employed_at = $faker->dateTimeBetween('-10 years', 'now', 'Europe/Kiev');
 
     return [

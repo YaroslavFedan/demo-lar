@@ -15,7 +15,8 @@ class CreateNestedFieldsEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->nestedSet();
-            $table->integer('depth')->index('depth_idx')->default(0)->after('parent_id');
+            $table->integer('depth')->default(0)->after('parent_id');
+            $table->unsignedTinyInteger('children_exist')->default(0)->after('depth');
         });
     }
 

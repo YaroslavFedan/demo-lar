@@ -20,7 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('photo')->nullable();
-            $table->double('salary',6,3)->nullable()->default(0);
+            $table->double('salary',10,3)->nullable()->default(0);
             $table->timestamp('employed_at')->nullable();
             $table->bigInteger('admin_created_id')->unsigned()->nullable();
             $table->bigInteger('admin_updated_id')->unsigned()->nullable();

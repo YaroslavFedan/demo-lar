@@ -13,8 +13,8 @@
 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @role('admin')
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item " >
+                    <a href="{{route('admin.employee.index')}}" class="nav-link {{ (request()->routeIs('admin.employee.*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users-cog text-warning"></i>
                         <p>Employees</p>
                     </a>

@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Blade;
+use App\Employee;
+use App\Http\View\Composers\PositionsComposer;
+use App\Observers\EmployeeObserver;
+use App\Position;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,21 +30,20 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        //Blade directives
-        Blade::directive('role', function ($role) {
-            return "<?php if(auth()->check() && auth()->user()->hasRole({$role})): ?>"; //return this if statement inside php tag
-        });
+        Employee::observe(EmployeeObserver::class);
 
-        Blade::directive('endrole', function ($role) {
-            return "<?php endif; ?>"; //return this endif statement inside php tag
-        });
+        // Option 1 - Every single view
+        //View::share('positions', Position::all());
 
-        Blade::directive('perm', function ($permission) {
-            return "<?php if(auth()->check() && auth()->user()->hasPerm({$permission})): ?>"; //return this if statement inside php tag
-        });
+        // Option 2 - Granular views with wildcards
+//        View::composer(['admin.employee.create','admin.employee.edit'], function ($view){
+//            $view->with(['positions'=>Position::all()]);
+//        });
 
-        Blade::directive('endperm', function ($role) {
-            return "<?php endif; ?>"; //return this endif statement inside php tag
-        });
+        // Option 3  - Dedicated Class
+        View::composer('partials.positions.*', PositionsComposer::class);
     }
+
+
+
 }

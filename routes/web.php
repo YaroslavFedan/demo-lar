@@ -26,19 +26,21 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::group([
         'namespace' => 'Admin',
         'prefix' => 'admin',
-        'name' => 'admin.',
+//        'name' => 'admin.',
         'middleware' => ['role:admin']
     ], function () {
         Route::get('/', 'HomeController@index')->name('admin.home');
+        Route::resource('/employee', 'EmployeeController', ['as' => 'admin','except'=>'show']);
     });
 
     Route::group([
         'namespace' => 'User',
         'prefix' => 'user',
-        'name' => 'user.',
+//        'name' => 'user.',
         'middleware' => 'role:user'
     ], function () {
         Route::get('/', 'HomeController@index')->name('user.home');
+
     });
 
 });

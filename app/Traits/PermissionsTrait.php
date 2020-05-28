@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Permissions;
+namespace App\Traits;
 
 use App\Role;
 use App\Permission;
 
-trait HasPermissionsTrait
+trait PermissionsTrait
 {
     public function givePermissionsTo( ...$permissions ) {
 
@@ -63,7 +63,6 @@ trait HasPermissionsTrait
 
     public  function hasPerm( ...$permissions)
     {
-
         foreach ($permissions as $permission) {
             if ($this->permissions->contains('slug', $permission)) {
                 return true;
@@ -72,14 +71,17 @@ trait HasPermissionsTrait
         return false;
     }
 
+
     public function hasPermission($permission) {
         return (bool) $this->permissions->where('slug', $permission->slug)->count();
     }
+
 
     public function permissions() {
 
         return $this->belongsToMany(Permission::class,'users_permissions');
     }
+
 
     protected function getAllPermissions(array $permissions) {
 

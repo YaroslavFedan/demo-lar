@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model
 {
+
     /**
      * fillable
      *
@@ -17,7 +18,12 @@ class Position extends Model
      * Get the emlpoyees of this position.
      */
     public function employees() {
-//        return $this->hasMany(Employee::class);
+       return $this->hasMany(Employee::class);
+    }
+
+    public function demos()
+    {
+        return $this->hasMany(Demo::class);
     }
 
 }

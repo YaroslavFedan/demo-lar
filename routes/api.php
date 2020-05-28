@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::namespace('Api')->group(function () {
+
+    Route::get('/employees/tree/{id?}',  'EmployeesTreeController@index');
+
+//    Route::get('/employees/tree/full',  'EmployeesTreeController@full');
+
+    Route::get('/employee/head/{str?}/{employee_id?}', 'EmployeeHeadController@index');
+
+//    Route::group(['middleware'=>['auth','role:admin']], function (){
+//        Route::get('/employees/tree/{employee?}',  'EmployeesTreeController@index');
+//    });
 });
+

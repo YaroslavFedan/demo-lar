@@ -6,20 +6,18 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="api-base-url" content="{{ url('api') }}" />
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
 </head>
 <body class="hold-transition sidebar-mini  layout-fixed" >
-    <div class="wrapper" id="app">
-        @include('layouts.partials._navbar')
-        @include('layouts.partials._sidebar')
+    <div class="wrapper" >
+        @include('partials._navbar')
+        @include('partials._sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -47,8 +45,13 @@
         </div>
         <!-- /.content-wrapper -->
 
-        @include('layouts.partials._footer')
+        @include('partials._footer')
 
     </div>
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+    @stack('scripts')
+
 </body>
 </html>

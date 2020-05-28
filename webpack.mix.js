@@ -1,5 +1,8 @@
 const mix = require('laravel-mix');
 
+require('laravel-mix-alias');
+mix.alias('@', '/resources/js/src/');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
