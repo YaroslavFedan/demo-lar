@@ -9,6 +9,13 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        <li class='nav-item'>
+            <form action="{{ route('search') }}" method="get">
+
+                <input type="text" name='search'>
+                <button type="submit"> find</button>
+            </form>
+        </li>
         <li class="nav-item">
             <a class="nav-link"
 

@@ -19,31 +19,31 @@ class EmployeeObserver
      */
     public function creating(Employee $employee)
     {
-        if(Auth::check()){
-
-            DB::beginTransaction();
-
-            try{
-
-                if(request()->has('photo')){
-                    $employee->photo = $this->makePhoto(request()->photo);
-                }
-
-                $employee->admin_created_id = Auth::user()->id;
-                $employee->admin_updated_id = Auth::user()->id;
-
-                $parent = Employee::findOrFail($employee->parent_id);
-                $parent->children_exist = 1;
-                $parent->save();
-                $employee->depth = ++$parent->depth;
-
-                DB::commit();
-
-            }catch(\Exception $e){
-                Log::info('Creating employee fail',['message'=>$e->getMessage()]);
-                DB::rollback();
-            }
-        }
+//        if(Auth::check()){
+//
+//            DB::beginTransaction();
+//
+//            try{
+//
+//                if(request()->has('photo')){
+//                    $employee->photo = $this->makePhoto(request()->photo);
+//                }
+//
+//                $employee->admin_created_id = Auth::user()->id;
+//                $employee->admin_updated_id = Auth::user()->id;
+//
+//                $parent = Employee::findOrFail($employee->parent_id);
+//                $parent->children_exist = 1;
+//                $parent->save();
+//                $employee->depth = ++$parent->depth;
+//
+//                DB::commit();
+//
+//            }catch(\Exception $e){
+//                Log::info('Creating employee fail',['message'=>$e->getMessage()]);
+//                DB::rollback();
+//            }
+//        }
     }
 
 
@@ -56,7 +56,7 @@ class EmployeeObserver
     public function updating(Employee $employee)
     {
 
-        $this->rebuildTree($employee);
+//        $this->rebuildTree($employee);
 //        dd($employee);
 
 //        if(Auth::check()){
@@ -116,24 +116,24 @@ class EmployeeObserver
 
     protected function removePhoto($employee_id)
     {
-        $imageName = Employee::findOrFail($employee_id)->photo;
-
-        if($imageName){
-            $path = public_path($imageName);
-            if(file_exists($path)){
-                unlink($path);
-            }
-        }
+//        $imageName = Employee::findOrFail($employee_id)->photo;
+//
+//        if($imageName){
+//            $path = public_path($imageName);
+//            if(file_exists($path)){
+//                unlink($path);
+//            }
+//        }
     }
 
     protected function makePhoto($photo)
     {
-        $imageName = time() . '-' .$photo->getClientOriginalName();
-        $image_path = config('image.path').$imageName;
-
-        \Image::make($photo)->resize(300, 300)->save($image_path, 80);
-
-        return $imageName;
+//        $imageName = time() . '-' .$photo->getClientOriginalName();
+//        $image_path = config('image.path').$imageName;
+//
+//        \Image::make($photo)->resize(300, 300)->save($image_path, 80);
+//
+//        return $imageName;
     }
 
 
@@ -142,30 +142,30 @@ class EmployeeObserver
     protected function rebuildTree($employee)
     {
 
-         dump($employee->toArray());
-         $employee_before = Employee::findOrFail(6);
-
-
-         if($this->hasMoved($employee)){
-
-//             $this->updateOldParent($employee_before);
-//             $parent = $this->setNewParent($employee);
-
-             dump('query',[
-
-                 'before'=>$employee->getOriginal('parent_id'),
-                 'moved'=>true,
-                 'employee'=>$employee,
-//                 'new parent'=>$parent->toArray()
-             ]);
-
-         }else{
-             dump('query',[
-                 'before'=>$employee->getOriginal('parent_id'),
-                 'employee'=>$employee,
-                 'moved'=>false
-             ]);
-         }
+//         dump($employee->toArray());
+//         $employee_before = Employee::findOrFail(6);
+//
+//
+//         if($this->hasMoved($employee)){
+//
+////             $this->updateOldParent($employee_before);
+////             $parent = $this->setNewParent($employee);
+//
+//             dump('query',[
+//
+//                 'before'=>$employee->getOriginal('parent_id'),
+//                 'moved'=>true,
+//                 'employee'=>$employee,
+////                 'new parent'=>$parent->toArray()
+//             ]);
+//
+//         }else{
+//             dump('query',[
+//                 'before'=>$employee->getOriginal('parent_id'),
+//                 'employee'=>$employee,
+//                 'moved'=>false
+//             ]);
+//         }
 
 
 
@@ -214,8 +214,8 @@ class EmployeeObserver
 
 
 
-          dd($employee->toArray());
-
+//          dd($employee->toArray());
+//
         /*
                 // если изменился родитель
                 if($employee_before->parent_id !== $employee->parent_id) {
@@ -265,27 +265,27 @@ class EmployeeObserver
     }
 
     protected function hasMoved($employee){
-        return ($employee->getOriginal('parent_id') != $employee->parent_id);
+//        return ($employee->getOriginal('parent_id') != $employee->parent_id);
     }
 
 
     protected function setNewParent($employee)
     {
-        $parent = Employee::findOrFail($employee->parent_id);
-        $parent->children_exist = 1;
-//        $parent->save();
-
-        return $parent;
+//        $parent = Employee::findOrFail($employee->parent_id);
+//        $parent->children_exist = 1;
+////        $parent->save();
+//
+//        return $parent;
     }
 
     protected function updateOldParent($employee)
     {
-        $parent = $employee->parent()->first();
-        $cnt_children = $parent->children()->count();
-
-        if($cnt_children == 1){
-            $parent->children_exist = 0;
-            $parent->save();
-        }
+//        $parent = $employee->parent()->first();
+//        $cnt_children = $parent->children()->count();
+//
+//        if($cnt_children == 1){
+//            $parent->children_exist = 0;
+//            $parent->save();
+//        }
     }
 }

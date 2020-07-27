@@ -31,6 +31,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        Auth::attempt();
         $this->middleware('guest')->except('logout');
     }
 

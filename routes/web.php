@@ -20,6 +20,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->middleware('guest');
 
+Route::get('search','SearchController@index')->name('search');
+
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
 

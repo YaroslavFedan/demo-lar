@@ -3,7 +3,6 @@
         <v-jstree
             :data="treeData"
             ref="tree"
-            draggable="true"
             :async="loadData"
             @item-click="itemClick"
         >
@@ -15,7 +14,7 @@
     import VJstree from 'vue-jstree';
 
     const instance = axios.create({
-        baseURL:'http://laravel-shop.test/api/',
+        baseURL:'http://laravel-shop/api/',
         withCredentials: true,
     });
 
@@ -30,6 +29,7 @@
                     let path = `/employees/tree/${id}`;
                     instance.get(path)
                         .then( (response) => {
+                            console.log(response);
                             resolve(response.data.data);
                         })
                         .catch(error => console.log(error) );

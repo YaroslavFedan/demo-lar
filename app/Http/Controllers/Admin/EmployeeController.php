@@ -32,7 +32,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('admin.employee.create');//->with(['positions'=>Position::all()]);
+        return view('admin.employee.create');
     }
 
 
